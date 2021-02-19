@@ -25,6 +25,7 @@
 \date{}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
+% \newtheorem{definition}{Example}
 
 \algnewcommand{\Inputs}[1]{%
   \State \textbf{Inputs:}\hspace*{\algorithmicindent}\parbox[t]{.8\linewidth}{\raggedright #1}
@@ -35,9 +36,9 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{remark}{Remark}
 \newtheorem{corollary}{Corollary}
-\newcounter{example}{Example}
 \newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
    \noindent \textbf{Example~\theexample. #1} \rmfamily}{\medskip}
+\newcounter{example}{Example}
       
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -45,7 +46,6 @@
 \maketitle
 
 \section{Vector Space\cite{optimization}}
-
 \begin{definition}
 \fbox{\textbf{Inner product}} $\langle\cdot,\cdot\rangle:X\times X\rightarrow\mathbb{R}$ is a mapping that satisfies the following axioms:
 \begin{enumerate}
@@ -380,7 +380,8 @@ For 2D case, the energy function is defined as below
 where the tuning parameter $\lambda$ is to control the rigidity of the deformation, balancing the aforementioned criterion with the measure of goodness of fit. If the interpolant pass through the data points exactly, then the first term of the energy function below should be zero. For this variational problem, it can be shown that there exists a unique minimizer $f$.
 \end{definition}
 
-\section{Riemannian Manifold\cite{fletcher,hao,zhang}}
+\newpage
+\section{Riemannian Geometry\cite{fletcher,hao,zhang}}
 \begin{definition}
 \boxed{\textbf{Isomorphism}} is a function between two structures of the same type that can be reversed by an inverse function.
 \end{definition}
@@ -1499,6 +1500,7 @@ Compared to isometries that preserve both lengths and angles, conformality is a 
 \boxed{\textbf{Symmetric space}} is a connected Riemannian manifold $M$ such that $\forall p\in M$, there is an involutive isometry $\phi_p:M\rightarrow M$ that has $p$ as an isolated fixed point. A point $x\in X$ is called a fixed point of $\phi$ if $\phi(x)=x$.
 \end{definition}
 
+\newpage
 \section{Adjoint Representation\cite{singh}}
 \begin{definition}
 \boxed{\textbf{Automorphism group}} $\Psi:G\rightarrow G$ is defined as
@@ -1642,6 +1644,7 @@ A linear operator $f:\mathfrak{g}\rightarrow\mathfrak{g}$ is \boxed{\textbf{tran
 We use this to define the adjoint-transpose action $\mathrm{Ad}^\dagger:G\times\mathfrak{g}\rightarrow\mathfrak{g}$ via the transpose of $\mathrm{Ad}_g$ and the infinitesimal adjoint-transpose $\mathrm{ad}^\dagger:\mathfrak{g}\times\mathfrak{g}\rightarrow\mathfrak{g}$ via the transpose of $\mathrm{ad}_v$
 \end{definition}
 
+\newpage
 \section{Diffeomorphism}
 \begin{definition}
 \boxed{\textbf{Information metric}} $G^I$ is defined by
@@ -1766,8 +1769,8 @@ The essential cause of the above phenomena is that, due to the limitation in com
 \caption{$\varphi$}
 \end{figure}
 
+\newpage
 \section{Statistics}
-
 \begin{definition}
 \boxed{\textbf{Covariance}} for two random variables $X$ and $Y$, each with sample size $d$ is defined by
 \begin{align*}
@@ -2013,6 +2016,7 @@ In a more specific way, we have
 \end{equation*}
 \end{remark}
 
+\newpage
 \section{Linear Algebra}
 \subsection{Multiplication}
 \begin{definition}
@@ -2249,6 +2253,7 @@ Without any compression techniques, we need to store $450\times333=149,850$ pixe
 then $A$ is diagonalizable.
 \end{definition}
 
+\newpage
 \section{Geometric Transformations}
 \begin{table}[H]
 \centering
@@ -2333,6 +2338,7 @@ especially when there is a translation operation.
 \end{align*}
 \end{remark}
 
+\newpage
 \section{Diffusion Tensor Image}
 \begin{definition}
 \boxed{\textbf{Fractional anisotropy (FA)}} is a scalar value between 0 and 1 that describes the degree of anisotropy of a diffusion process, which is defined as below:
@@ -2376,14 +2382,15 @@ Tractography is simply the Euler integration on the principal eigenvector field(
     % \label{fig:my_label}
 \end{figure}
 
+\newpage
 \section{Deep Learning}
 \subsection{Loss Function}
 \begin{definition}
 \boxed{\textbf{Dice loss function}} is defined as 
 \begin{equation*}
-    L_{\operatorname{dice}}=-\frac{2|A\cap B|}{|A|+|B|}=-\frac{2\times\left<x_{\operatorname{true}}, x_{\operatorname{pred}}\right>}{\|x_{\operatorname{true}}\|^2_2+\|x_{\operatorname{pred}}\|^2_2+\epsilon}\in(-1,0],
+    L_{\operatorname{dice}}=-\frac{2|A\cap B|}{|A|+|B|}=-\frac{2\times\left<v_{\operatorname{true}}, v_{\operatorname{pred}}\right>}{\|v_{\operatorname{true}}\|^2_2+\|v_{\operatorname{pred}}\|^2_2+\epsilon}\in(-1,0],
 \end{equation*}
-where $x_{\operatorname{true}},x_{\operatorname{pred}}\in\mathbb{R}^{h\times w\times d}$ are \textbf{one-hot vectors}, and $\epsilon$ is a small constant to avoid zero division. 
+where $v_{\operatorname{true}},v_{\operatorname{pred}}\in\mathbb{R}^{h\times w\times d}$ are \textbf{one-hot vectors}, and $\epsilon$ is a small constant to avoid zero division. 
 \end{definition}
 
 \begin{remark}
@@ -2393,17 +2400,17 @@ Since dice loss function is a loss function, just as other loss function, lower 
 \begin{definition}
 \boxed{\textbf{$L^1$ loss function}} is defined as 
 \begin{equation*}
-    L_{L^1}=\|x_{\operatorname{true}}-x_{\operatorname{pred}}\|_1,
+    L_{L^1}=\|v_{\operatorname{true}}-v_{\operatorname{pred}}\|_1,
 \end{equation*}
-where $x_{\operatorname{true}},x_{\operatorname{pred}}$ are vectors.
+where $v_{\operatorname{true}},v_{\operatorname{pred}}$ are vectors.
 \end{definition}
 
 \begin{definition}
 \boxed{\textbf{$L^2$ loss function}} is defined as 
 \begin{equation*}
-    L_{L^2}=\|x_{\operatorname{true}}-x_{\operatorname{pred}}\|^2_2,
+    L_{L^2}=\|v_{\operatorname{true}}-v_{\operatorname{pred}}\|^2_2,
 \end{equation*}
-where $x_{\operatorname{true}},x_{\operatorname{pred}}$ are vectors.
+where $v_{\operatorname{true}},v_{\operatorname{pred}}$ are vectors.
 \end{definition}
 
 \begin{definition}
@@ -2474,12 +2481,63 @@ we can have the KL divergence
     D_{\operatorname{KL}}(p,q)=(0\times\log(0)+0\times\log(0)+1\times\log(1))-(0\times\log(0.1)+0\times\log(0.2)+0\times\log(0.7))=0.35
 \end{equation*}
 \end{example}
+
 \subsection{Normalization}
+\begin{definition}
+\boxed{\textbf{Batch normalization}}\cite{batch} is defined as
+\begin{align*}
+     \mu_{c}&=\frac{1}{HWN}\sum^N_n\sum^W_w\sum^H_h x_{cnhw}\\
+     \sigma_{c}^2&=\frac{1}{HWN}\sum^N_n\sum^W_w\sum^H_h(x_{cnhw}-\mu_c)^2\\
+     \hat{x}_{c}&=\frac{x_{c}-\mu_{c}}{\sqrt{\sigma_{c}^2+\epsilon}}
+\end{align*}
+where $x$ are the values of input over a mini-batch, $C,N,H,W$ are the channel, batch, height, width size, respectively. Batch normalization should be performed by each channel.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Layer normalization}} is defined as
+\begin{align*}
+     \mu_{n}&=\frac{1}{HWC}\sum^C_c\sum^W_w\sum^H_h x_{cnhw}\\
+     \sigma_{n}^2&=\frac{1}{HWC}\sum^C_c\sum^W_w\sum^H_h(x_{cnhw}-\mu_n)^2\\
+     \hat{x}_{n}&=\frac{x_{n}-\mu_{n}}{\sqrt{\sigma_{n}^2+\epsilon}}
+\end{align*}
+where $x$ are the values of input over a mini-batch, $C,N,H,W$ are the channel, batch, height, width size, respectively. Layer normalization should be performed by each sample in a mini-batch.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Instance normalization}} is defined as
+\begin{align*}
+     \mu_{cn}&=\frac{1}{HW}\sum^W_w\sum^H_h x_{cnhw}\\
+     \sigma_{cn}^2&=\frac{1}{HW}\sum^W_w\sum^H_h(x_{cnhw}-\mu_{cn})^2\\
+     \hat{x}_{cn}&=\frac{x_{cn}-\mu_{cn}}{\sqrt{\sigma_{cn}^2+\epsilon}}
+\end{align*}
+where $x$ are the values of input over a mini-batch, $C,N,H,W$ are the channel, batch, height, width size, respectively. Instance normalization should be performed by each channel and sample in a batch.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Group normalization}}\cite{group} is a middle ground between layer and instance normalization, which is defined as
+\begin{align*}
+     \mu_{gn}&=\frac{1}{HW|G_i|}\sum^{|G_i|}_{c\in G_i}\sum^W_w\sum^H_h x_{cnhw}\\
+     \sigma_{gn}^2&=\frac{1}{HW|G_i|}\sum^{|G_i|}_{c\in G_i}\sum^W_w\sum^H_h(x_{cnhw}-\mu_n)^2\\
+     \hat{x}_{gn}&=\frac{x_{n}-\mu_{n}}{\sqrt{\sigma_{n}^2+\epsilon}}\\
+     G&=\{G_1,\cdots\}\\
+     G_i&=\{c_i,\cdots,c_{i'}\}
+\end{align*}
+where $x$ are the values of input over a mini-batch, $C,N,H,W,|G|$ are the channel, batch, height, width, group size, respectively. Instance normalization should be performed by each group among the channel set.
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{figure/normalization.png}
+    \caption{Normalization methods. Each subplot shows a feature map tensor, with $N$ as the batch axis, $C$ as the channel axis, and $(H, W)$ as the spatial axes. The pixels in blue are normalized by the same mean and variance, computed by aggregating the values of these pixels.}
+    \label{fig:my_label}
+\end{figure}
+
 \subsection{Optimization}
 \subsection{Regularization}
 \subsection{Activation Function}
 \subsection{Data Augmentation}
 
+\newpage
 \begin{thebibliography}{99} 
 \bibitem{optimization}Luenberger, D.G., 1997. \textit{Optimization by vector space methods}. John Wiley \& Sons.
 \bibitem{fletcher}Fletcher, P.T., Pizer, S.M. and Joshi, S., 2004. \textit{Statistical variability in nonlinear spaces: Application to shape analysis and DT-MRI} (pp. 6469-6469). University of North Carolina at Chapel Hill.
@@ -2503,5 +2561,7 @@ algorithms. PDF file. October 16, 2019. \url{http://www.gatsby.ucl.ac.uk/~gretto
 \bibitem{rg} Riemannian Geometry: Definitions, Pictures, and Results. PDF file. \url{https://arxiv.org/pdf/1412.2393.pdf}
 \bibitem{karcher} Karcher, H., 1977. Riemannian center of mass and mollifier smoothing. Communications on pure and applied mathematics, 30(5), pp.509-541.
 \bibitem{tomthesis}Fletcher, P.T., Statistical Variability in Nonlinear Spaces: Application to Shape Analysis and DT-MRI, Ph.D. Thesis, Department of Computer Science, University of North Carolina, August 2004.
+\bibitem{batch}Ioffe, S. and Szegedy, C., 2015, June. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In International conference on machine learning (pp. 448-456). PMLR.
+\bibitem{group}Wu, Y. and He, K., 2018. Group normalization. In Proceedings of the European conference on computer vision (ECCV) (pp. 3-19).
 \end{thebibliography}
 \end{document}
