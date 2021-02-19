@@ -17,6 +17,7 @@
 \usepackage{hyperref}
 \usepackage{float}
 \renewcommand{\baselinestretch}{1.5}
+\usepackage{todonotes}
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm} 
 
 \title{Note on Mathematics of Imaging}
@@ -108,6 +109,10 @@ The norm of an element $f(u)$ in $L_p$ is defined as
     \|f\|_p=\left(\int^b_a|f(u)|^pdu\right)^{1/p}
 \end{equation*}
 The $L^p$-functions are the functions for which this integral converges. For $p\not=2$, the space of $L^p$-functions is a Banach space which is not a Hilbert space.
+% \todo{Always remember the \textbf{absolute value sign} in norm calculation.}
+\begin{remark}
+Always remember the \textbf{absolute value sign} in norm calculation.
+\end{remark}
 
 \begin{figure}[H]
 \centering
@@ -2370,6 +2375,110 @@ Tractography is simply the Euler integration on the principal eigenvector field(
     \caption{Tangent vectors of the geodesics (blue) of the generated noisy data at a SNR of 15 under the inverse-tensor metric without modulation. The red vectors are the principal eigenvectors of the diffusion tensors.}
     % \label{fig:my_label}
 \end{figure}
+
+\section{Deep Learning}
+\subsection{Loss Function}
+\begin{definition}
+\boxed{\textbf{Dice loss function}} is defined as 
+\begin{equation*}
+    L_{\operatorname{dice}}=-\frac{2|A\cap B|}{|A|+|B|}=-\frac{2\times\left<x_{\operatorname{true}}, x_{\operatorname{pred}}\right>}{\|x_{\operatorname{true}}\|^2_2+\|x_{\operatorname{pred}}\|^2_2+\epsilon}\in(-1,0],
+\end{equation*}
+where $x_{\operatorname{true}},x_{\operatorname{pred}}\in\mathbb{R}^{h\times w\times d}$ are \textbf{one-hot vectors}, and $\epsilon$ is a small constant to avoid zero division. 
+\end{definition}
+
+\begin{remark}
+Since dice loss function is a loss function, just as other loss function, lower score indicates better alignment. And that's the reason why the negative sign is indispensable.
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{$L^1$ loss function}} is defined as 
+\begin{equation*}
+    L_{L^1}=\|x_{\operatorname{true}}-x_{\operatorname{pred}}\|_1,
+\end{equation*}
+where $x_{\operatorname{true}},x_{\operatorname{pred}}$ are vectors.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{$L^2$ loss function}} is defined as 
+\begin{equation*}
+    L_{L^2}=\|x_{\operatorname{true}}-x_{\operatorname{pred}}\|^2_2,
+\end{equation*}
+where $x_{\operatorname{true}},x_{\operatorname{pred}}$ are vectors.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Cross-entropy loss function}} of the discrete \textbf{probability distribution} $p$ and $q$ over a given set is defined as 
+\begin{equation*}
+    H(p,q)=-\sum_{x\in {\mathcal {X}}} p(x)\log(q(x))=-\left<p,\log(q)\right>\in[0,\infty),
+\end{equation*}
+which measures the distance between the distributions.
+\end{definition}
+
+\begin{remark}
+Cross-entropy loss, or log loss, measures the performance of a classification model whose output is a \textbf{probability value between 0 and 1}. Cross-entropy loss increases as the predicted probability diverges from the actual label. 
+\end{remark}
+
+\begin{example}
+As for the two discrete distributions below:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Distribution & Class A & Class B & Class C \\ \hline
+$p$            & 0       & 0       & 1    \\ \hline
+$q$           & 0.1     & 0.2     & 0.7        \\ \hline
+\end{tabular}
+\end{table}
+we can have the cross entropy 
+\begin{equation*}
+    H(p,q)=-(0\times\log(0.1)+0\times\log(0.2)+0\times\log(0.7))=0.35
+\end{equation*}
+\end{example}
+
+\begin{remark}
+According to the example above, the only thing that contributes to the value of loss is the predicted possibility of the ground-truth class, since the possibilities of other classes are all wiped out by 0. The closer predicted possibility of the ground-truth class to 1, the lower loss will be.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.25]{figure/log.jpg}
+    \caption{$y=-\log(x)$}
+    \label{fig:my_label}
+\end{figure}
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Kullback–Leibler(KL) divergence}} is defined as
+\begin{align*}
+    D_{\text{KL}}(p,q)&=\sum _{x\in {\mathcal {X}}}p(x)\log \left({\frac {p(x)}{q(x)}}\right)\\
+    &=-\sum _{x\in {\mathcal {X}}}p(x)\log q(x)+\sum _{x\in {\mathcal {X}}}p(x)\log p(x)\\
+    &=-H(p,q)+H(p)\in[0,\infty),
+\end{align*}
+\end{definition}
+
+\begin{remark}
+KL divergence describes how different $q$ is from $p$ from the perspective of $p$. When $p$ is fixed, just as the ground-truth data in training, minimizing KL divergence and cross-entropy is equivalent, as $H(p)$ is a constant.
+\end{remark}
+
+\begin{example}
+As for the two discrete distributions below:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Distribution & Class A & Class B & Class C \\ \hline
+$p$            & 0       & 0       & 1    \\ \hline
+$q$           & 0.1     & 0.2     & 0.7        \\ \hline
+\end{tabular}
+\end{table}
+we can have the KL divergence
+\begin{equation*}
+    D_{\operatorname{KL}}(p,q)=(0\times\log(0)+0\times\log(0)+1\times\log(1))-(0\times\log(0.1)+0\times\log(0.2)+0\times\log(0.7))=0.35
+\end{equation*}
+\end{example}
+\subsection{Normalization}
+\subsection{Optimization}
+\subsection{Regularization}
+\subsection{Activation Function}
+\subsection{Data Augmentation}
 
 \begin{thebibliography}{99} 
 \bibitem{optimization}Luenberger, D.G., 1997. \textit{Optimization by vector space methods}. John Wiley \& Sons.
