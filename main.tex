@@ -45,9 +45,9 @@
 \begin{document}
 \maketitle
 
-\section{Vector Space\cite{optimization}}
+\section{Vector Space}
 \begin{definition}
-\fbox{\textbf{Inner product}} $\langle\cdot,\cdot\rangle:X\times X\rightarrow\mathbb{R}$ is a mapping that satisfies the following axioms:
+\fbox{\textbf{Inner product}}\cite{optimization} $\langle\cdot,\cdot\rangle:X\times X\rightarrow\mathbb{R}$ is a mapping that satisfies the following axioms:
 \begin{enumerate}
     \item $\langle x,y\rangle=\langle y,x\rangle$
     \item $\langle x+y,z\rangle=\langle x,z\rangle+\langle y,z\rangle$
@@ -381,9 +381,9 @@ where the tuning parameter $\lambda$ is to control the rigidity of the deformati
 \end{definition}
 
 \newpage
-\section{Riemannian Geometry\cite{fletcher,hao,zhang}}
+\section{Riemannian Geometry}
 \begin{definition}
-\boxed{\textbf{Isomorphism}} is a function between two structures of the same type that can be reversed by an inverse function.
+\boxed{\textbf{Isomorphism}}\cite{fletcher,hao,zhang} is a function between two structures of the same type that can be reversed by an inverse function.
 \end{definition}
 
 \begin{example}
@@ -1501,9 +1501,9 @@ Compared to isometries that preserve both lengths and angles, conformality is a 
 \end{definition}
 
 \newpage
-\section{Adjoint Representation\cite{singh}}
+\section{Adjoint Representation}
 \begin{definition}
-\boxed{\textbf{Automorphism group}} $\Psi:G\rightarrow G$ is defined as
+\boxed{\textbf{Automorphism group}}\cite{singh} $\Psi:G\rightarrow G$ is defined as
 \begin{equation*}
     \Psi_g(h)=ghg^{-1}
 \end{equation*}
@@ -1801,6 +1801,10 @@ The essential cause of the above phenomena is that, due to the limitation in com
 \end{align*}
 In other words, the subspace $V_k=\operatorname{span}(\{e_1,\cdots,e_k\})$ is the $k$-dimensional subspace that maximizes the variance of the data projected to the subspace. The basis $\{e_i\}$ is computed as the set of ordered eigenvectors of the sample covariance matrix of the data.
 \end{definition}
+
+\begin{remark}
+Concatenating all the feature vector together as a matrix, using SVD to decompose the matrix is a common way of performing PCA.
+\end{remark}
 
 \begin{example}
 Given a dataset $S=\{S^1,\cdots,S^n\}$ of $n$ samples, where $S^i\in\mathbb{R}^d$ and $\Bar{S}$ is the mean of the dataset $S$
@@ -2260,11 +2264,11 @@ then $A$ is diagonalizable.
 \begin{tabular}{cccc}
 \hline
 \textbf{Transformation} & \multicolumn{1}{c}{\textbf{Matrix}} & \textbf{\#DoF} & \textbf{Preserves} \\ \hline
-Translation             & \begin{pmatrix} 1 & 0 & t_1\\ 0 & 1 & t_2\\ 0 & 0 & 1\end{pmatrix} & 2              & orientation        \\
-Scaling                 & \begin{pmatrix} s_{1} & 0 & 0\\ 0 & s_{2} & 0\\ 0 & 0 & 1\end{pmatrix}  & 2 & orientation\\
-Shearing                 & \begin{pmatrix} 1 & s_{1} & 0\\ s_{2} & 1 & 0\\ 0 & 0 & 1\end{pmatrix}  & 2 & orientation\\
-Rotation       & \begin{pmatrix} \cos(\theta) & -\sin(\theta) & 0\\ \sin(\theta) & \cos(\theta) & 0\\ 0 & 0 & 1\end{pmatrix} & 1              & lengths            \\
-Affine                  & \begin{pmatrix} a_{11} & a_{12} & a_{13}\\ a_{21} & a_{22} & a_{23}\\ 0 & 0 & 1\end{pmatrix} & 6              & parallelism        \\\hline
+Translation             & $\begin{pmatrix} 1 & 0 & t_1\\ 0 & 1 & t_2\\ 0 & 0 & 1\end{pmatrix}$ & 2              & orientation        \\
+Scaling                 & $\begin{pmatrix} s_{1} & 0 & 0\\ 0 & s_{2} & 0\\ 0 & 0 & 1\end{pmatrix}$  & 2 & orientation\\
+Shearing                 & $\begin{pmatrix} 1 & s_{1} & 0\\ s_{2} & 1 & 0\\ 0 & 0 & 1\end{pmatrix}$  & 2 & orientation\\
+Rotation       & $\begin{pmatrix} \cos(\theta) & -\sin(\theta) & 0\\ \sin(\theta) & \cos(\theta) & 0\\ 0 & 0 & 1\end{pmatrix}$ & 1              & lengths            \\
+Affine                  & $\begin{pmatrix} a_{11} & a_{12} & a_{13}\\ a_{21} & a_{22} & a_{23}\\ 0 & 0 & 1\end{pmatrix}$ & 6              & parallelism        \\\hline
 \end{tabular}
 \end{table}
 \begin{remark}
@@ -2384,7 +2388,37 @@ Tractography is simply the Euler integration on the principal eigenvector field(
 
 \newpage
 \section{Deep Learning}
-\subsection{Loss Function}
+\subsection{Common terms}
+\begin{definition}
+One \boxed{\textbf{batch}} of samples is a group of samples concatenated together to go through the network before updating the model weights.
+\end{definition}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cc}
+\hline
+{ \textbf{Types}}              & { \textbf{Batch size}}                    \\ \hline
+Stochastic gradient descent & 1 \\
+Mini-Batch gradient descent & $(1, \text{size of training dataset})$\\
+Batch gradient descent      & size of training dataset \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{example}
+In PyTorch's implementation, mini-batch concatenates the designated samples together and put it into the network. For instance, if the image is of size 128*128*128, 4 channels, and mini-batch size is 2, then the shape of input tensor during training is 2*4*128*128*128. 
+
+You may wonder that when it comes to testing, the input is only one sample at a time, but the model stays the same, how can that still work? The things is, a model only regulates the shape of convolution kernel, pooling parameters, activation function and how they are organized, the size of the input does not matter, it can either 2*4*128*128*128 or 1*4*128*128*128. As long as the output size matches the ground-truth size, the workflow can be performed uninterruptedly.
+\end{example}
+
+\begin{definition}
+One \boxed{\textbf{iteration}} is a time span when an a batch of training data is passed forward and backward through the neural network.
+\end{definition}
+
+\begin{definition}
+One \boxed{\textbf{epoch}} is a time span when an entire training dataset is passed forward and backward through the neural network.
+\end{definition}
+
+\subsection{Loss Functions}
 \begin{definition}
 \boxed{\textbf{Dice loss function}} is defined as 
 \begin{equation*}
@@ -2414,6 +2448,20 @@ where $v_{\operatorname{true}},v_{\operatorname{pred}}$ are vectors.
 \end{definition}
 
 \begin{definition}
+\boxed{\textbf{Hausdorff distance}} is defined as 
+\begin{equation*}
+     d_{\mathrm {H} }(X,Y)=\max \left\{\,\sup _{x\in X}\inf _{y\in Y}d(x,y),\,\sup _{y\in Y}\inf _{x\in X}d(x,y)\,\right\}
+\end{equation*}
+where X and Y be two non-empty subsets of a metric space $(M,d)$.
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/hausdorff.png}
+    \caption{Components of the calculation of the Hausdorff distance between the green line X and the blue line Y.}
+\end{figure}
+
+\begin{definition}
 \boxed{\textbf{Cross-entropy loss function}} of the discrete \textbf{probability distribution} $p$ and $q$ over a given set is defined as 
 \begin{equation*}
     H(p,q)=-\sum_{x\in {\mathcal {X}}} p(x)\log(q(x))=-\left<p,\log(q)\right>\in[0,\infty),
@@ -2429,10 +2477,10 @@ Cross-entropy loss, or log loss, measures the performance of a classification mo
 As for the two discrete distributions below:
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{cccc}
 \hline
-Distribution & Class A & Class B & Class C \\ \hline
-$p$            & 0       & 0       & 1    \\ \hline
+\textbf{Distribution} & \textbf{Class A} & \textbf{Class B} & \textbf{Class C} \\ \hline
+$p$            & 0       & 0       & 1    \\ 
 $q$           & 0.1     & 0.2     & 0.7        \\ \hline
 \end{tabular}
 \end{table}
@@ -2469,10 +2517,10 @@ KL divergence describes how different $q$ is from $p$ from the perspective of $p
 As for the two discrete distributions below:
 \begin{table}[H]
 \centering
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{cccc}
 \hline
-Distribution & Class A & Class B & Class C \\ \hline
-$p$            & 0       & 0       & 1    \\ \hline
+\textbf{Distribution} & \textbf{Class A} & \textbf{Class B} & \textbf{Class C} \\ \hline
+$p$            & 0       & 0       & 1    \\ 
 $q$           & 0.1     & 0.2     & 0.7        \\ \hline
 \end{tabular}
 \end{table}
@@ -2532,9 +2580,58 @@ where $x$ are the values of input over a mini-batch, $C,N,H,W,|G|$ are the chann
     \label{fig:my_label}
 \end{figure}
 
-\subsection{Optimization}
+\subsection{Optimizer}
+\begin{definition}
+\boxed{\textbf{Adam optimizer}}
+\end{definition}
 \subsection{Regularization}
 \subsection{Activation Function}
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+\textbf{Types}                    & \textbf{Functions}                                       & \textbf{Range}                                           & \textbf{Order of continuity} \\ \hline
+Sigmoid(logistic)        & $\sigma(x)=\frac {1}{1+e^{-x}}$               & $(0,1)$  & $C^\infty$\\
+Tanh(hyperbolic tangent) & $\tanh(x)={\frac {e^{x}-e^{-x}}{e^{x}+e^{-x}}}$ & $(-1,1)$   & $C^\infty$\\
+ReLU(rectified linear unit)  & $\operatorname{ReLU}(x)=\max\{0,x\}$            & $[0,+\infty)$    & $C^0$\\       
+Leaky ReLU               & $\operatorname{Leaky ReLU}(x)=\max\{0.01x,x\}$  & $(-\infty,+\infty)$ & $C^0$\\
+ELU(exponential linear unit)& ${\begin{cases}\alpha \left(e^{x}-1\right)&{\text{if }}x\leq 0\\x&{\text{if }}x>0\end{cases}}$ & $(-\alpha,+\infty)$ & $\begin{cases}C^{1}&{\text{if }}\alpha =1\\C^{0}&{\text{otherwise}}\end{cases}$\\ 
+GELU(gaussian error linear unit)& $\begin{aligned}&{\frac {1}{2}}x\left(1+{\text{erf}}\left({\frac {x}{\sqrt {2}}}\right)\right)\end{aligned}$ & $(-0.17,+\infty)$ & $C^\infty$\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/sigmoid.png}
+    \includegraphics[scale=0.6]{figure/tanh.png}
+    \includegraphics[scale=0.6]{figure/relu.png}
+    \includegraphics[scale=0.6]{figure/leakyrelu.png}
+    \includegraphics[scale=0.6]{figure/elu.png}
+    \includegraphics[scale=0.08]{figure/gelu.png}
+    \caption{Plots of sigmoid, tahn, ReLU, Leaky ReLU, ELU, GELU activation functions, correspondingly.}
+\end{figure}
+
+The following table lists activation functions that are not functions of a single fold $x$ from the previous layer or layers:
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+{ \textbf{Types}} & { \textbf{Functions}}                            & { \textbf{Range}}        & { \textbf{Order of continuity}} \\ \hline
+{ Softmax}        & { $\frac {e^{x_{i}}}{\sum _{j=1}^{J}e^{x_{j}}}$} & { $(0,1)$}               & { $C^{\infty }$}                \\ 
+{ Maxout}         & { $\max _{i}x_{i}$}                              & { $ (-\infty ,\infty )$} & { $C^{0}$}                      \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{remark}
+Activation functions have different mathematical properties:
+\begin{itemize}
+    \item \textbf{Nonlinear.} When the activation function is non-linear, then a two-layer neural network can be proven to be a universal function approximator. This is known as the Universal Approximation Theorem. The identity activation function does not satisfy this property. When multiple layers use the identity activation function, the entire network is equivalent to a single-layer model.
+    \item \textbf{Range.} When the range of the activation function is finite, gradient-based training methods tend to be more stable, because pattern presentations significantly affect only limited weights. When the range is infinite, training is generally more efficient because pattern presentations significantly affect most of the weights. In the latter case, smaller learning rates are typically necessary.
+    \item \textbf{Continuously differentiable.} This property is desirable (ReLU is not continuously differentiable and has some issues with gradient-based optimization, but it is still possible) for enabling gradient-based optimization methods. The binary step activation function is not differentiable at 0, and it differentiates to 0 for all other values, so gradient-based methods can make no progress with it.
+    \item \textbf{Monotonic.} When the activation function is monotonic, the error surface associated with a single-layer model is guaranteed to be convex.
+\end{itemize}
+\end{remark}
 \subsection{Data Augmentation}
 
 \newpage
