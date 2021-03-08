@@ -176,24 +176,50 @@ Equality holds if and only if $\left(\frac{|\xi_i|}{\|x\|_p}\right)^{1/q}=\left(
 Equality holds if and only if $k_1x=k_2y$ for some positive constants $k_1$ and $k_2$.
 
 \begin{theorem}
-\textbf{Divergence Theorem.}Letting $\varphi$ be a $C^1$ vector field, defined on $\Omega$, which is a region in the plane with boundary $\partial \Omega$, then
+\textbf{Divergence Theorem.} Letting $\varphi$ be a $C^1$ vector field, defined on $\Omega$, which is a region in the plane with boundary $\partial \Omega$, then
 \begin{equation*}
     \int_\Omega\mathrm{div}\varphi dx=\int_{\partial\Omega}\langle\varphi,N\rangle dl
 \end{equation*}
 where $N$ is the outward normal to $\Omega$ and $\mathrm{div}(\varphi)=\mathrm{trace}(D\varphi)$.
 \end{theorem}
 
-\begin{theorem}
-In general, calculus of variation seeks to find $y=f(x)$ such that this integral:
-\begin{equation*}
-    I(y)=\int^{x_2}_{x_1}F(x,y,y')dx
-\end{equation*}
-is stationary. And the functional $ I$ attains an extremum value whenever
+\begin{definition}
+\fbox{\textbf{Euler-Lagrange equation}} is defined as
 \begin{equation*}
     \frac{\partial F}{\partial y}-\frac{\partial}{\partial x}\left(\frac{\partial F}{\partial y'}\right)=0.
 \end{equation*}
-This condition is known as the \textbf{Euler-Lagrange equation}.
-\end{theorem}
+which is used to find a $y=f(x)$ making this integral
+\begin{equation*}
+    L(y)=\int^{x_2}_{x_1}F(x,y,y')dx
+\end{equation*}
+stationary.
+\end{definition}
+
+\begin{example}
+Suppose $A$ and $B$ are two points in a Euclidean space. We want to find the geodesic between $A$ and $B$.
+
+\paragraph{Solution.} We would like to minimize 
+\begin{align*}
+    L&=\int^B_A1ds\text{, where } ds=\sqrt{(dx)^2+(dy)^2}=\sqrt{1+(y')^2}dx
+\end{align*}
+which can be written in another form
+\begin{equation*}
+    L=\int^B_A\sqrt{1+(y')^2}dx
+\end{equation*}
+We need to find a $y(x)$ which minimize $L$, where
+\begin{equation*}
+    F=\sqrt{1+(y')^2}
+\end{equation*}
+Substituting it into the Euler-Lagrange equation, we have
+\begin{align*}
+    \frac{\partial F}{\partial y}-\frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right)&=0\\
+    -\frac{d}{dx}\left(\frac{y'}{\sqrt{1+(y')^2}}\right)&=0\\
+    \frac{y'}{\sqrt{1+(y')^2}}&=c\\
+    (y')^2&=\frac{c^2}{1-c^2}\\
+    y'&=c_1\\
+    y&=c_1x+c_2
+\end{align*}
+\end{example}
 
 \begin{theorem}
 The property of a \textbf{Green's function} can be exploited to solve differential equations of the form
@@ -1772,6 +1798,142 @@ The essential cause of the above phenomena is that, due to the limitation in com
 \newpage
 \section{Statistics}
 \begin{definition}
+\boxed{\textbf{Likelihood}} is the probability of certain observation given the reason, namely
+\begin{equation*}
+    p(\text{observation}|\text{reason}).
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Prior probability}} is the probability of the reason without any observation, namely
+\begin{equation*}
+    p(\text{reason}).
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Posterior probability}} is the probability of the reason with certain observation, namely
+\begin{align*}
+    p(\text{reason}|\text{observation})&=\frac{p(\text{observation}|\text{reason})}{p(\text{observation})}\times p(\text{reason})\\
+    &\propto \text{Likelihood}\times\text{Prior Probability}
+\end{align*}
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Probability mass function(PMF)}} is a function that gives the probability that a discrete random variable is exactly equal to some value.
+\begin{equation*}
+    P(X=a)=f(a).
+\end{equation*}
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Probability density function(PDF)}} is a function the gives the probability of a continuous random variable is located among certain interval.
+\begin{equation*}
+    P(a\leq X\leq b)=\int _{a}^{b}f(x)\,dx.
+\end{equation*}
+\end{definition}
+
+\begin{example}
+Suppose bacteria of a certain species typically live 4 to 6 hours. The probability that a bacterium lives exactly 5 hours is equal to zero. A lot of bacteria live for approximately 5 hours, but there is no chance that any given bacterium dies at exactly 5.0000000000... hours. However, the probability that the bacterium dies between 5 hours and 5.01 hours is quantifiable. 
+\end{example}
+
+\begin{remark}
+A PDF must be integrated over an interval to yield a probability.
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Maximum likelihood estimation (MLE)}} is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable.
+\end{definition}
+
+\begin{example}
+Now suppose that there was only one coin but its $p$ could have been any value $0\le p\le 1$. The likelihood function to be maximized is
+\begin{equation*}
+    L(p)={\binom {80}{49}}p^{49}(1-p)^{31}
+\end{equation*}
+and the maximization is over all possible values $0\le p\le 1$.
+
+By differentiating $L(p)$ with respect to $p$ and setting to zero, we yield that the maximum likelihood estimator for p is $\frac{49}{80}$.
+\end{example}
+
+\begin{definition}
+\boxed{\textbf{Monte Carlo methods}} are a broad class of computational algorithms that rely on repeated random sampling to obtain numerical results. Monte Carlo methods vary, but tend to follow a particular pattern:
+\begin{enumerate}
+    \item Define a domain of possible inputs;
+    \item Generate inputs randomly from a probability distribution over the domain;
+    \item Perform a deterministic computation on the inputs;
+    \item Aggregate the results.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+Consider a quadrant (circular sector) inscribed in a unit square. Given that the ratio of their areas is $\frac{\pi}{4}$, the value of $\pi$ can be approximated using a Monte Carlo method:
+\begin{enumerate}
+    \item Draw a square, then inscribe a quadrant within it;
+    \item Uniformly scatter a given number of points over the square;
+    \item Count the number of points inside the quadrant, i.e. having a distance from the origin of less than 1. The ratio of the inside-count and the total-sample-count is an estimate of the ratio of the two areas, namely the approximation of $\frac{\pi}{4}$;
+    \item Multiply the result by 4 to estimate $\pi$.
+\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{figure/estimating-pi-monte-carlo-method.png}
+    % \caption{Caption}
+    % \label{fig:my_label}
+\end{figure}
+\end{example}
+
+\begin{definition}
+\boxed{\textbf{Normal distribution}} $X\sim N(\mu,\sigma^2)$ is defined as 
+\begin{equation*}
+     f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, F(x)=\int_0^\infty\frac{1}{\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx,
+ \end{equation*}
+ where $\mu$ is the mean value and $\sigma$ is the standard deviation.
+\end{definition}
+
+\begin{remark}
+Some properties of normal distribution:
+\begin{itemize}
+    \item If $X\sim N(\mu,\sigma^2), a, b$ are real, then $aX+b\sim N(a\mu+b,(a\sigma)^2)$.
+    \item If $X\sim N(\mu_X,\sigma_X^2)$ and $Y\sim N(\mu_Y,\sigma_Y^2)$ are two independent random variables, then $ X+Y \sim N(\mu_X + \mu_Y, \sigma^2_X + \sigma^2_Y), {\displaystyle X-Y\sim N(\mu _{X}-\mu _{Y},\sigma _{X}^{2}+\sigma _{Y}^{2})}$.
+\end{itemize}
+\end{remark}
+
+\begin{theorem}
+\textbf{Law of large numbers (LLN).} When $\{X_1,\cdots,X_n\}$ is an infinite sequence of independent identical distributed random variables with expectation $E(X_1),\cdots,E(X_n)=\mu$, we can have
+\begin{equation*}
+    \Bar{X}_n\rightarrow\mu, \text{when }n\rightarrow\infty,
+\end{equation*}
+where $\Bar{X}_n=\frac{1}{n}\sum^n_{i=1} X_i$.
+\end{theorem}
+
+\begin{remark}
+We can approximate the expectation of an unknown distribution by performing a sufficient number of the trials.
+\end{remark}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.15]{figure/1920px-Lawoflargenumbers.svg.png}
+    \caption{Law of large numbers}
+    % \label{fig:my_label}
+\end{figure}
+
+\begin{theorem}
+\textbf{Central limit theorem (CLT).} In many situation, when independent random variables are added, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normal distributed.
+\end{theorem}
+
+\begin{remark}
+The theorem is a key concept in probability theory because this theorem allows us to leverage the normal distribution to solve other unknown distributions.
+\end{remark}
+
+\begin{example}
+Given a sequence of i.i.d. random variables $\{X_1,\cdots,X_n\}$, we randomly pick $m$(relatively large) samples from the population to calculate the mean value and repeat it $k$ times. And the $k$ mean values would be normal distributed.
+\end{example}
+
+\begin{definition}
+\boxed{\textbf{Confidence interval}} is defined as 
+
+\end{definition}
+
+\begin{definition}
 \boxed{\textbf{Covariance}} for two random variables $X$ and $Y$, each with sample size $d$ is defined by
 \begin{align*}
     \operatorname{cov}(X,Y)&=E[(X-E[X])(Y-E(Y])]\\
@@ -2342,6 +2504,33 @@ especially when there is a translation operation.
 \end{align*}
 \end{remark}
 
+\begin{definition}
+\boxed{\textbf{Affine transformation}} is a geometric transformation of a Euclidean space that preserves lines and parallelism (but not necessarily distances and angles).
+\end{definition}
+
+\begin{remark}
+Affine transformations include scaling, rotation, translation, shear mapping, reflection, or compositions of them in any combination and sequence.
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Rigid transformation}} is a geometric transformation of a Euclidean space that preserves the Euclidean distance between every pair of points.
+\end{definition}
+
+\begin{remark}
+Rigid transformations include rotation, translation, reflection, or compositions of them in any combination and sequence.
+\end{remark}
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{ccc}
+% \hline
+% \multicolumn{1}{l}{\textbf{Transformation}} & { \textbf{Affine}}                  & { \textbf{Rigid}}                   \\ \hline
+% Scaling                                     & \cmark & \xmark \\
+% Rotation                                    & \cmark & \cmark \\
+% Translation                                 & \cmark & \cmark \\
+% Shear mapping                               & \cmark & \xmark \\
+% Reflection                                  & \cmark & \cmark \\ \hline
+% \end{tabular}
+% \end{table}
 \newpage
 \section{Diffusion Tensor Image}
 \begin{definition}
@@ -2407,7 +2596,7 @@ Batch gradient descent      & size of training dataset \\ \hline
 \begin{example}
 In PyTorch's implementation, mini-batch concatenates the designated samples together and put it into the network. For instance, if the image is of size 128*128*128, 4 channels, and mini-batch size is 2, then the shape of input tensor during training is 2*4*128*128*128. 
 
-You may wonder that when it comes to testing, the input is only one sample at a time, but the model stays the same, how can that still work? The things is, a model only regulates the shape of convolution kernel, pooling parameters, activation function and how they are organized, the size of the input does not matter, it can either 2*4*128*128*128 or 1*4*128*128*128. As long as the output size matches the ground-truth size, the workflow can be performed uninterruptedly.
+You may wonder that when it comes to testing, the input is only one sample at a time, but the model stays the same, how can that still work? The things is, a model only regulates the shape of convolution kernel, pooling parameters, activation function and how they are organized, the size of the input does not matter, it can either 2*4*128*128*128 or 1*4*128*128*128. The final loss is actually summation of all samples' loss. As long as the output size matches the ground-truth size, the workflow can be performed uninterruptedly.
 \end{example}
 
 \begin{definition}
@@ -2419,6 +2608,13 @@ One \boxed{\textbf{epoch}} is a time span when an entire training dataset is pas
 \end{definition}
 
 \subsection{Loss Functions}
+\begin{definition}
+\boxed{\textbf{Intersection of Union(Jaccard index, IoU)}} is defined as 
+\begin{equation*}
+    \operatorname{IoU}=\frac{|A\cap B|}{|A\cup B|}
+\end{equation*}
+\end{definition}
+
 \begin{definition}
 \boxed{\textbf{Dice loss function}} is defined as 
 \begin{equation*}
@@ -2462,7 +2658,17 @@ where X and Y be two non-empty subsets of a metric space $(M,d)$.
 \end{figure}
 
 \begin{definition}
-\boxed{\textbf{Cross-entropy loss function}} of the discrete \textbf{probability distribution} $p$ and $q$ over a given set is defined as 
+\boxed{\textbf{Entropy}} of the \textbf{discrete probability distribution} $p$ is defined as
+\begin{equation*}
+   H(p)=-\sum _{x\in {\mathcal {X}}}{p (x)\log p (x)} \in[0,1]
+\end{equation*}
+
+\begin{remark}
+If entropy is closer to 1, means the distribution is of high level of disorder (low level of purity). If entropy is closer to 0, means the distribution is of low level of disorder (high level of purity).
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Cross-entropy loss function}} of the \textbf{discrete probability distribution} $p$ and $q$ over a given set is defined as 
 \begin{equation*}
     H(p,q)=-\sum_{x\in {\mathcal {X}}} p(x)\log(q(x))=-\left<p,\log(q)\right>\in[0,\infty),
 \end{equation*}
@@ -2472,6 +2678,8 @@ which measures the distance between the distributions.
 \begin{remark}
 Cross-entropy loss, or log loss, measures the performance of a classification model whose output is a \textbf{probability value between 0 and 1}. Cross-entropy loss increases as the predicted probability diverges from the actual label. 
 \end{remark}
+
+\end{definition}
 
 \begin{example}
 As for the two discrete distributions below:
