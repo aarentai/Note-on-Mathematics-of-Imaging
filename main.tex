@@ -1820,14 +1820,14 @@ The essential cause of the above phenomena is that, due to the limitation in com
 \end{definition}
 
 \begin{definition}
-\boxed{\textbf{Probability mass function(PMF)}} is a function that gives the probability that a discrete random variable is exactly equal to some value.
+\boxed{\textbf{Probability mass function(PMF)}} is a discrete function $f(x)$ that gives the probability that a discrete random variable is exactly equal to some value. The probability is acquired through
 \begin{equation*}
     P(X=a)=f(a).
 \end{equation*}
 \end{definition}
 
 \begin{definition}
-\boxed{\textbf{Probability density function(PDF)}} is a function the gives the probability of a continuous random variable is located among certain interval.
+\boxed{\textbf{Probability density function(PDF)}} is a continuous function $f(x)$ the gives the probability of a continuous random variable is located among certain interval. The probability is acquired through
 \begin{equation*}
     P(a\leq X\leq b)=\int _{a}^{b}f(x)\,dx.
 \end{equation*}
@@ -1838,11 +1838,23 @@ Suppose bacteria of a certain species typically live 4 to 6 hours. The probabili
 \end{example}
 
 \begin{remark}
-A PDF must be integrated over an interval to yield a probability.
+A PDF must be integrated over an interval to yield a probability. 
 \end{remark}
 
 \begin{definition}
-\boxed{\textbf{Maximum likelihood estimation (MLE)}} is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable.
+\boxed{\textbf{Cumulative density function(CDF)}} is a continuous function $F(x)$ the gives the probability of a continuous random variable is less than or equal to $x$.
+\begin{align*}
+    F(x)&=\int ^{x}_{-\infty}f(t)\,dt.\\
+    P(X\leq b)&=F(b)
+\end{align*}
+\end{definition}
+
+\begin{remark}
+PDF is the derivative of the CDF.
+\end{remark}
+
+\begin{definition}
+\boxed{\textbf{Maximum likelihood estimation(MLE)}} is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable.
 \end{definition}
 
 \begin{example}
@@ -1898,7 +1910,7 @@ Some properties of normal distribution:
 \end{remark}
 
 \begin{theorem}
-\textbf{Law of large numbers (LLN).} When $\{X_1,\cdots,X_n\}$ is an infinite sequence of independent identical distributed random variables with expectation $E(X_1),\cdots,E(X_n)=\mu$, we can have
+\textbf{Law of large numbers(LLN).} When $\{X_1,\cdots,X_n\}$ is an infinite sequence of independent identical distributed random variables with expectation $E(X_1),\cdots,E(X_n)=\mu$, we can have
 \begin{equation*}
     \Bar{X}_n\rightarrow\mu, \text{when }n\rightarrow\infty,
 \end{equation*}
@@ -1917,7 +1929,7 @@ We can approximate the expectation of an unknown distribution by performing a su
 \end{figure}
 
 \begin{theorem}
-\textbf{Central limit theorem (CLT).} In many situation, when independent random variables are added, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normal distributed.
+\textbf{Central limit theorem(CLT).} In many situation, when independent random variables are added, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normal distributed.
 \end{theorem}
 
 \begin{remark}
@@ -2841,6 +2853,53 @@ Activation functions have different mathematical properties:
 \end{itemize}
 \end{remark}
 \subsection{Data Augmentation}
+
+\newpage
+\section{Radiation Oncology}
+\begin{definition}
+\boxed{\textbf{Tumor control probability(TCP)}} is defined as
+\begin{align*}
+    \operatorname{TCP}&=\exp(-N_s)\\
+    &=\exp(-N_0\exp(-\alpha D))
+\end{align*}
+where $N_0$ and $N_s$ are the initial number and surviving number of clonogenic cells, $D$ is the dose of radiation, assuming here to be irradiated uniformly and to have uniform radiosensitivity $\alpha(Gy^{-1})$. Note that
+\begin{align*}
+    N_s&\approx N_0\exp(-\alpha D)\\
+    &\approx \sum^n_{i=1}N_{0,i}\exp(-\alpha D_i)
+\end{align*}
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{figure/tcp.pdf}
+    \caption{TCP as a function of target dose. $\text{Tumor volume}=320 cm^3; \text{Clonogenic cell density}=10^7cm^{-3}; \alpha=0.35Gy^{-1}$}
+\end{figure}
+
+\begin{definition}
+\boxed{\textbf{Normal tissue complications probability (NTCP)}} is defined as
+
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Intensity-modulated radiation therapy (IMRT)}} uses multiple small radiation beams to precisely irradiate a tumor. The radiation intensity of each IMRT beam is divided into small segments.
+\end{definition}
+
+\begin{definition}
+\boxed{\textbf{Dose-volume histogram(DVH)}} is a histogram relating radiation dose to tissue volume in radiation therapy planning.
+\end{definition}
+
+\begin{remark}
+DVHs can be visualized in either of two ways: \textbf{differential DVHs} or \textbf{cumulative DVHs}. A DVH is created by first determining the size of the dose bins of the histogram. Bins can be of arbitrary size, e.g. 0–1 Gy, 1.001–2.000 Gy, 2.001–3.000 Gy, etc.
+\end{remark}
+
+\begin{remark}
+Drawbacks of the DVH:
+\begin{itemize}
+    \item The shape of DVH alone can be misleading.
+    \item DVHs offer no spatial information; i.e., a DVH does not show where within a structure a dose is received.
+    \item DVHs from initial radiotherapy plans represent the doses to structures at the start of radiation treatment. As treatment progresses and time elapses, if there are changes (i.e. if patients lose weight, if tumors shrink, if organs change shape, etc.), the original DVH loses its accuracy.
+\end{itemize}
+\end{remark}
 
 \newpage
 \begin{thebibliography}{99} 
