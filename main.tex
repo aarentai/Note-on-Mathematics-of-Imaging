@@ -1526,8 +1526,8 @@ Compared to isometries that preserve both lengths and angles, conformality is a 
 \boxed{\textbf{Symmetric space}} is a connected Riemannian manifold $M$ such that $\forall p\in M$, there is an involutive isometry $\phi_p:M\rightarrow M$ that has $p$ as an isolated fixed point. A point $x\in X$ is called a fixed point of $\phi$ if $\phi(x)=x$.
 \end{definition}
 
-\newpage
-\section{Adjoint Representation}
+% \newpage
+% \section{Adjoint Representation}
 \begin{definition}
 \boxed{\textbf{Automorphism group}}\cite{singh} $\Psi:G\rightarrow G$ is defined as
 \begin{equation*}
@@ -1670,8 +1670,8 @@ A linear operator $f:\mathfrak{g}\rightarrow\mathfrak{g}$ is \boxed{\textbf{tran
 We use this to define the adjoint-transpose action $\mathrm{Ad}^\dagger:G\times\mathfrak{g}\rightarrow\mathfrak{g}$ via the transpose of $\mathrm{Ad}_g$ and the infinitesimal adjoint-transpose $\mathrm{ad}^\dagger:\mathfrak{g}\times\mathfrak{g}\rightarrow\mathfrak{g}$ via the transpose of $\mathrm{ad}_v$
 \end{definition}
 
-\newpage
-\section{Diffeomorphism}
+% \newpage
+% \section{Diffeomorphism}
 \begin{definition}
 \boxed{\textbf{Information metric}} $G^I$ is defined by
 \begin{equation*}
@@ -2431,8 +2431,7 @@ Without any compression techniques, we need to store $450\times333=149,850$ pixe
 then $A$ is diagonalizable.
 \end{definition}
 
-\newpage
-\section{Geometric Transformations}
+\subsection{Geometric Transformations}
 \begin{table}[H]
 \centering
 \begin{tabular}{cccc}
@@ -2531,61 +2530,6 @@ Affine transformations include scaling, rotation, translation, shear mapping, re
 \begin{remark}
 Rigid transformations include rotation, translation, reflection, or compositions of them in any combination and sequence.
 \end{remark}
-% \begin{table}[H]
-% \centering
-% \begin{tabular}{ccc}
-% \hline
-% \multicolumn{1}{l}{\textbf{Transformation}} & { \textbf{Affine}}                  & { \textbf{Rigid}}                   \\ \hline
-% Scaling                                     & \cmark & \xmark \\
-% Rotation                                    & \cmark & \cmark \\
-% Translation                                 & \cmark & \cmark \\
-% Shear mapping                               & \cmark & \xmark \\
-% Reflection                                  & \cmark & \cmark \\ \hline
-% \end{tabular}
-% \end{table}
-\newpage
-\section{Diffusion Tensor Image}
-\begin{definition}
-\boxed{\textbf{Fractional anisotropy (FA)}} is a scalar value between 0 and 1 that describes the degree of anisotropy of a diffusion process, which is defined as below:
-\begin{equation*}
-    {\text{FA}}={\sqrt  {{\frac  {3}{2}}}}{\frac  {{\sqrt  {(\lambda _{1}-{\hat  {\lambda }})^{2}+(\lambda _{2}-{\hat  {\lambda }})^{2}+(\lambda _{3}-{\hat  {\lambda }})^{2}}}}{{\sqrt  {\lambda _{1}^{2}+\lambda _{2}^{2}+\lambda _{3}^{2}}}}}
-\end{equation*}
-where
-\begin{equation*}
-     {\hat {\lambda }}=(\lambda _{1}+\lambda _{2}+\lambda _{3})/3.
-\end{equation*}
-\end{definition}
-
-\begin{remark}
-When $\operatorname{FA}=0$, the tensor is a sphere. The FA more close to 1, the tensor more anisotropy.
-\end{remark}
-
-\begin{definition}
-\boxed{\textbf{DWI signal}} $S_j$ in a voxel $x$ is defined as below:
-\begin{equation*}
-    S_j(x)=S_0(x)e^{-bg^T_jD(x)g_j}
-\end{equation*}
-where $b$ is the know b-value, $S_0$ is the acquired baseline image, $D(x)$ is the diffusion tensor at voxel $x$, and $g_j$ is the $j$-th gradient encoding direction.
-\end{definition}
-
-\begin{definition}
-\boxed{\textbf{Deterministic tractography}} computes streamlines (sometimes called fibers) by forward integration of the principal eigenvector of the diffusion tensors from one region.
-\end{definition}
-
-\begin{remark}
-One major problem with tractography is that imaging noise causes errors in the principal eigenvector direction, and these errors accumulate in the integration of the streamlines. Another disadvantage to tractography is that it has difficulty in cases where the goal is to find pathways between two regions.
-\end{remark}
-
-\begin{remark}
-Tractography is simply the Euler integration on the principal eigenvector field(red vector in figure below) derived by DTI image, while the geodesic will follow the tangent vector(blue vector in figure below). And that's the reason why the geodesic will deviate from the integral curve among the high curvature area. Principal eigenvector of the metric tensor and tangent vector of the metric tensor are not necessarily the same.
-\end{remark}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{figure/teneigen.png}
-    \caption{Tangent vectors of the geodesics (blue) of the generated noisy data at a SNR of 15 under the inverse-tensor metric without modulation. The red vectors are the principal eigenvectors of the diffusion tensors.}
-    % \label{fig:my_label}
-\end{figure}
 
 \newpage
 \section{Deep Learning}
@@ -2618,6 +2562,41 @@ One \boxed{\textbf{iteration}} is a time span when an a batch of training data i
 \begin{definition}
 One \boxed{\textbf{epoch}} is a time span when an entire training dataset is passed forward and backward through the neural network.
 \end{definition}
+
+\begin{definition}
+\boxed{\textbf{Fully-connected input layer}} takes the output of the previous layers, ``flattens'' them and turns them into a single vector that can be an input for the next stage.
+\end{definition}
+
+\begin{table}[H]
+\centering
+\caption{VGGNet in detail}
+\begin{tabular}{llll}
+\hline
+\multicolumn{1}{c}{\textbf{Layer}} & \multicolumn{1}{c}{\textbf{Size}} & \multicolumn{1}{c}{\textbf{Memory}} & \multicolumn{1}{c}{\textbf{Weights}} \\ \hline
+INPUT                              & {[}224x224x3{]}                   & 224*224*3=150K                      & 0                        \\
+CONV3-64                           & {[}224x224x64{]}                  & 224*224*64=3.2M                     & (3*3*3)*64               \\
+CONV3-64                           & {[}224x224x64{]}                  & 224*224*64=3.2M                     & (3*3*64)*64              \\
+POOL2                              & {[}112x112x64{]}                  & 112*112*64=800K                     & 0                        \\
+CONV3-128                          & {[}112x112x128{]}                 & 112*112*128=1.6M                    & (3*3*64)*128             \\
+CONV3-128                          & {[}112x112x128{]}                 & 112*112*128=1.6M                    & (3*3*128)*128            \\
+POOL2                              & {[}56x56x128{]}                   & 56*56*128=400K                      & 0                        \\
+CONV3-256                          & {[}56x56x256{]}                   & 56*56*256=800K                      & (3*3*128)*256            \\
+CONV3-256                          & {[}56x56x256{]}                   & 56*56*256=800K                      & (3*3*256)*256            \\
+CONV3-256                          & {[}56x56x256{]}                   & 56*56*256=800K                      & (3*3*256)*256            \\
+POOL2                              & {[}28x28x256{]}                   & 28*28*256=200K                      & 0                        \\
+CONV3-512                          & {[}28x28x512{]}                   & 28*28*512=400K                      & (3*3*256)*512            \\
+CONV3-512                          & {[}28x28x512{]}                   & 28*28*512=400K                      & (3*3*256)*512            \\
+CONV3-512                          & {[}28x28x512{]}                   & 28*28*512=400K                      & (3*3*256)*512            \\
+POOL2                              & {[}14x14x512{]}                   & 14*14*512=100K                      & 0                        \\
+CONV3-512                          & {[}14x14x512{]}                   & 14*14*512=100K                      & (3*3*512)*512            \\
+CONV3-512                          & {[}14x14x512{]}                   & 14*14*512=100K                      & (3*3*512)*512            \\
+CONV3-512                          & {[}14x14x512{]}                   & 14*14*512=100K                      & (3*3*512)*512            \\
+POOL2                              & {[}7x7x512{]}                     & 7*7*512=25K                         & 0                        \\
+FC                                 & {[}1x1x4096{]}                    & 4096                                & 7*7*512*4096             \\
+FC                                 & {[}1x1x4096{]}                    & 4096                                & 4096*4096                \\
+FC                                 & {[}1x1x1000{]}                    & 1000                                & 4096*1000                \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Loss Functions}
 \begin{definition}
@@ -2800,11 +2779,11 @@ where $x$ are the values of input over a mini-batch, $C,N,H,W,|G|$ are the chann
     \label{fig:my_label}
 \end{figure}
 
-\subsection{Optimizer}
-\begin{definition}
-\boxed{\textbf{Adam optimizer}}
-\end{definition}
-\subsection{Regularization}
+% \subsection{Optimizer}
+% \begin{definition}
+% \boxed{\textbf{Adam optimizer}}
+% \end{definition}
+% \subsection{Regularization}
 \subsection{Activation Function}
 \begin{table}[H]
 \centering
@@ -2852,54 +2831,8 @@ Activation functions have different mathematical properties:
     \item \textbf{Monotonic.} When the activation function is monotonic, the error surface associated with a single-layer model is guaranteed to be convex.
 \end{itemize}
 \end{remark}
-\subsection{Data Augmentation}
+% \subsection{Data Augmentation}
 
-\newpage
-\section{Radiation Oncology}
-\begin{definition}
-\boxed{\textbf{Tumor control probability(TCP)}} is defined as
-\begin{align*}
-    \operatorname{TCP}&=\exp(-N_s)\\
-    &=\exp(-N_0\exp(-\alpha D))
-\end{align*}
-where $N_0$ and $N_s$ are the initial number and surviving number of clonogenic cells, $D$ is the dose of radiation, assuming here to be irradiated uniformly and to have uniform radiosensitivity $\alpha(Gy^{-1})$. Note that
-\begin{align*}
-    N_s&\approx N_0\exp(-\alpha D)\\
-    &\approx \sum^n_{i=1}N_{0,i}\exp(-\alpha D_i)
-\end{align*}
-\end{definition}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.7]{figure/tcp.pdf}
-    \caption{TCP as a function of target dose. $\text{Tumor volume}=320 cm^3; \text{Clonogenic cell density}=10^7cm^{-3}; \alpha=0.35Gy^{-1}$}
-\end{figure}
-
-\begin{definition}
-\boxed{\textbf{Normal tissue complications probability (NTCP)}} is defined as
-
-\end{definition}
-
-\begin{definition}
-\boxed{\textbf{Intensity-modulated radiation therapy (IMRT)}} uses multiple small radiation beams to precisely irradiate a tumor. The radiation intensity of each IMRT beam is divided into small segments.
-\end{definition}
-
-\begin{definition}
-\boxed{\textbf{Dose-volume histogram(DVH)}} is a histogram relating radiation dose to tissue volume in radiation therapy planning.
-\end{definition}
-
-\begin{remark}
-DVHs can be visualized in either of two ways: \textbf{differential DVHs} or \textbf{cumulative DVHs}. A DVH is created by first determining the size of the dose bins of the histogram. Bins can be of arbitrary size, e.g. 0–1 Gy, 1.001–2.000 Gy, 2.001–3.000 Gy, etc.
-\end{remark}
-
-\begin{remark}
-Drawbacks of the DVH:
-\begin{itemize}
-    \item The shape of DVH alone can be misleading.
-    \item DVHs offer no spatial information; i.e., a DVH does not show where within a structure a dose is received.
-    \item DVHs from initial radiotherapy plans represent the doses to structures at the start of radiation treatment. As treatment progresses and time elapses, if there are changes (i.e. if patients lose weight, if tumors shrink, if organs change shape, etc.), the original DVH loses its accuracy.
-\end{itemize}
-\end{remark}
 
 \newpage
 \begin{thebibliography}{99} 
